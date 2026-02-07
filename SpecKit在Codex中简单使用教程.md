@@ -1,10 +1,10 @@
 [toc]
 
-# Spec Kit 在 Codex 中简单使用教程（AI 检查和润色版）
+# Spec Kit 在 Codex 中简单使用教程
 
 > 目标：用 **Spec Kit（`specify` CLI）** 在 **Codex** 里快速初始化项目规范（如 `constitution.md`），并在 VSCode / Codex 里通过 `/` 命令高效生成/维护规范内容。
 
-GitHub 项目地址（上游）：  
+GitHub 项目地址（上游）：
 `https://github.com/github/spec-kit/tree/main`
 
 ---
@@ -53,20 +53,7 @@ specify --help
 cd D:\path\to\your-project
 ```
 
-### 2.2 （可选）初始化 `uv` 项目
-
-原文里提到 `uv init`。这里需要澄清：
-
-- `uv init` **不是 Spec Kit 必需步骤**（Spec Kit 是否要求 `pyproject.toml` 取决于你后续如何使用它）。
-- 如果你希望把这个仓库当作一个 Python 项目来管理依赖、脚本等，执行 `uv init` 会更顺手。
-
-可选命令：
-
-```powershell
-uv init
-```
-
-### 2.3 初始化 Spec Kit（面向 Codex）
+### 2.2 初始化 Spec Kit（面向 Codex）
 
 在项目根目录执行：
 
@@ -76,13 +63,13 @@ specify init . --ai codex
 
 初始化后会生成/更新一些文件（包含 `constitution.md` 等）。**注意：重复执行 `specify init` 可能覆盖已有模板文件**，如果你已手工修改过，建议先提交到 Git 或备份再执行。
 
-对应截图（保留原文截图路径）：
+对应截图：
 
 ![uv init](images/SpecKit在Codex中简单使用教程/1770474027240.png)
 
 ![specify init](images/SpecKit在Codex中简单使用教程/1770474047384.png)
 
-### 2.4 可能需要代理（网络问题）
+### 2.3 可能需要代理（网络问题）
 
 如果安装或初始化过程中出现无法访问 GitHub、下载失败等情况，通常与网络/代理有关。你可以先确保：
 
@@ -125,8 +112,6 @@ echo $env:CODEX_HOME
 setx CODEX_HOME "D:\GithubCode\bootcamp-ai-program-learn\.codex"
 ```
 
-原文截图（保留）：
-
 ![设置 CODEX_HOME](images/SpecKit在Codex中简单使用教程/1770474226751.png)
 
 ---
@@ -137,27 +122,23 @@ setx CODEX_HOME "D:\GithubCode\bootcamp-ai-program-learn\.codex"
 
 在 VSCode 的 Codex 面板中，输入 `/` 通常可以调出可用命令列表（以你的插件版本/配置为准）。
 
-原文截图（保留）：
-
 ![斜杠命令](images/SpecKit在Codex中简单使用教程/1770474226751.png)
 
 ### 4.2 示例：`/speckit.constitution`
 
 运行 `/speckit.constitution` 后，会根据你在对话里的输入生成/更新一份新的 `constitution.md`（或对应的规范文件）。
 
-原文截图（保留）：
+原文截图：
 
 ![命令示例](images/SpecKit在Codex中简单使用教程/1770474395296.png)
 
-执行输出示例（保留）：
+执行输出示例：
 
 ![执行结束输出1](images/SpecKit在Codex中简单使用教程/1770475201005.png)
 
 ![执行结束输出2](images/SpecKit在Codex中简单使用教程/1770475229635.png)
 
 ### 4.3 关于 `constitution.md` 被覆盖的风险（重点）
-
-原文信息很关键，这里把逻辑说得更直白一点：
 
 - `constitution.md` 初始是一份模板
 - 再次执行 `specify init` 可能会重新生成并覆盖它
@@ -175,28 +156,25 @@ setx CODEX_HOME "D:\GithubCode\bootcamp-ai-program-learn\.codex"
 
 ### 5.1 设置 `CODEX_HOME` 后，`codex` 又要求登录了
 
-现象（原文截图）：
+现象：
 
 ![再次登录](images/SpecKit在Codex中简单使用教程/1770474623768.png)
 
-原因：  
-你的登录信息/供应商配置通常保存在默认目录（例如 `C:\Users\<你的用户名>\.codex`）下的 `config.toml`、`auth.json` 等文件里。  
+原因：
+你的登录信息/供应商配置通常保存在默认目录（例如 `C:\Users\<你的用户名>\.codex`）下的 `config.toml`、`auth.json` 等文件里。
 当你把 `CODEX_HOME` 指到新目录时，新目录里没有这些文件，Codex 会认为是“新环境”，因此提示重新登录。
 
 解决方式（两种选一种）：
 
-**方式 A：把旧配置复制到新的 `CODEX_HOME`（原文方案）**
+**方式 A：把旧配置复制到新的 `CODEX_HOME`**
 
 1. 找到默认配置目录（把 `admin` 换成你自己的 Windows 用户名）：
    - `C:\Users\<你的用户名>\.codex`
 2. 将 `auth.json`、`config.toml` 复制到你设置的 `CODEX_HOME` 目录下
 
-原文截图（保留）：
-
 ![拷贝配置](images/SpecKit在Codex中简单使用教程/1770474877923.png)
 
-注意：  
-如果你之前是通过 **CC-Switch** 来管理供应商配置，复制配置文件到新目录可能会让 CC-Switch 的修改“看起来不生效”（因为它可能仍在改默认目录下的配置）。这时你需要二选一：
+注意：如果你之前是通过 **CC-Switch** 来管理供应商配置，复制配置文件到新目录可能会让 CC-Switch 的修改“看起来不生效”（因为它可能仍在改默认目录下的配置）。这时你需要二选一：
 
 - 让 CC-Switch 也指向同一个 `CODEX_HOME`（如果它支持）
 - 或者不要持久化设置 `CODEX_HOME`，改用临时 `$env:CODEX_HOME` 用完就关
@@ -221,33 +199,7 @@ Remove-Item Env:CODEX_HOME -ErrorAction SilentlyContinue
 
 这样不会把个人的登录信息、配置文件提交到远程仓库。
 
-### 5.3 文档在 PowerShell 里显示乱码
-
-如果你用 PowerShell 5.x 的 `Get-Content` 直接查看 Markdown，可能会因为默认编码导致中文乱码。可改用：
-
-```powershell
-Get-Content -Raw -Encoding UTF8 "SpecKit在Codex中简单使用教程.md"
-```
-
----
-
-## 6. FAQ
-
-**Q1：必须执行 `uv init` 吗？**  
-A：不必须。`uv init` 更偏向“把目录初始化为 Python 项目”，Spec Kit 的 `specify init` 本身不一定依赖它。
-
-**Q2：`CODEX_HOME` 推荐设置到哪里？**  
-A：更推荐设置到一个“专用目录”，不要放在会被 Git 管理的项目目录里，避免配置泄露/污染仓库。例如：`D:\Tools\codex-home\.codex`。
-
-**Q3：为什么我在 VSCode 里输入 `/` 看不到命令？**  
-A：通常与 VSCode 的 Codex 插件版本、是否启用相关功能、以及 `CODEX_HOME`/配置是否正确有关。建议先确认：
-
-- VSCode 里的 Codex 能正常对话
-- `CODEX_HOME` 指向的目录中包含可用的配置与命令定义（若你的安装方式依赖这些）
-
----
-
-## 7. 术语解释（统一汇总）
+## 6. 术语解释（统一汇总）
 
 - **Spec Kit**：GitHub 的一个规范化工具/模板体系，用来帮助项目生成并维护工程规范、需求文档等。
 - **`specify-cli` / `specify`**：Spec Kit 的 CLI 工具包名与命令名（本文用 `uv tool install` 安装）。
